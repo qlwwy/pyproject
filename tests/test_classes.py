@@ -1,5 +1,5 @@
 import pytest
-from main import Product, Category
+from main import Smartphone, LawnGrass, Category, Product
 
 @pytest.fixture(autouse=True)
 def reset_counters():
@@ -124,3 +124,37 @@ def test_product_addition():
     product2 = Product("Product 2", "Description 2", 200.0, 3)
     total_price = product1 + product2
     assert total_price == 100.0 * 5 + 200.0 * 3
+
+def test_smartphone_str():
+    smartphone = Smartphone("Test Smartphone", "Description", 1000.0, 10, 95.5, "ModelX", 128, "Black")
+    expected_str = ("Test Smartphone, Модель: ModelX, Производительность: 95.5, "
+                     "Память: 128, Цвет: Black, 1000.0 руб. Остаток: 10 шт.")
+    assert str(smartphone) == expected_str
+
+def test_lawn_grass_initialization():
+    lawn_grass = LawnGrass("Test Grass", "Description", 500.0, 20, "Country", "7 days", "Green")
+    assert lawn_grass.name == "Test Grass"
+    assert lawn_grass.description == "Description"
+    assert lawn_grass.price == 500.0
+    assert lawn_grass.quantity == 20
+    assert lawn_grass.country == "Country"
+    assert lawn_grass.germination_period == "7 days"
+    assert lawn_grass.color == "Green"
+
+def test_lawn_grass_str():
+    lawn_grass = LawnGrass("Test Grass", "Description", 500.0, 20, "Country", "7 days", "Green")
+    expected_str = ("Test Grass, Страна: Country, Срок прорастания: 7 days дней, "
+                     "Цвет: Green, 500.0 руб. Остаток: 20 шт.")
+    assert str(lawn_grass) == expected_str
+
+def test_addition_of_smartphones():
+    smartphone1 = Smartphone("Smartphone 1", "Description 1", 1000.0, 10, 95.5, "ModelX", 128, "Black")
+    smartphone2 = Smartphone("Smartphone 2", "Description 2", 1500.0, 5, 98.0, "ModelY", 256, "White")
+    total_price = smartphone1 + smartphone2
+    assert total_price == 1000.0 * 10 + 1500.0 * 5
+
+def test_addition_of_lawn_grass():
+    grass1 = LawnGrass("Grass 1", "Description 1", 500.0, 20, "Country1", "7 days", "Green")
+    grass2 = LawnGrass("Grass 2", "Description 2", 400.0, 15, "Country2", "5 days", "Dark Green")
+    total_price = grass1 + grass2
+    assert total_price == 500.0 * 20 + 400.0 * 15
