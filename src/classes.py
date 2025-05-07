@@ -49,6 +49,7 @@ class Category:
             self.__products.append(product)
             Category.product_count += 1
         else:
+
             raise TypeError("Добавляемый объект должен быть экземпляром класса Product или его наследника")
 
     @property
