@@ -1,4 +1,12 @@
-class Product:
+from abc import ABC, abstractmethod
+
+class BaseProduct(ABC):
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+class Product(BaseProduct):
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
@@ -49,7 +57,6 @@ class Category:
             self.__products.append(product)
             Category.product_count += 1
         else:
-
             raise TypeError("Добавляемый объект должен быть экземпляром класса Product или его наследника")
 
     @property
