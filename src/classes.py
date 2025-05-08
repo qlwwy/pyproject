@@ -1,13 +1,20 @@
 from abc import ABC, abstractmethod
 
 class BaseProduct(ABC):
-
     @abstractmethod
     def __str__(self):
         pass
 
+class LoggingMixin:
+    def __init__(self, *args, **kwargs):
+        class_name =self.__class__.__name__
+        super().__init__(*args, **kwargs)
+
+        return f"{class_name}( "
+
 class Product(BaseProduct):
     def __init__(self, name, description, price, quantity):
+        super().__init__(*args, **kwargs)
         self.name = name
         self.description = description
         self.price = price
