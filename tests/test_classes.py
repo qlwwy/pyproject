@@ -158,3 +158,14 @@ def test_addition_of_lawn_grass():
     grass2 = LawnGrass("Grass 2", "Description 2", 400.0, 15, "Country2", "5 days", "Dark Green")
     total_price = grass1 + grass2
     assert total_price == 500.0 * 20 + 400.0 * 15
+
+def test_product_repr():
+    product = Product("Test Product", "Test Description", 100.0, 10)
+    assert repr(product) == "Product, (Test Product, Test Description, 100.0, 10)"
+
+def test_logging_mixin_output(capsys):
+    product = Product("Test Product", "Test Description", 100.0, 10)
+    captured = capsys.readouterr()
+    assert "Product, (Test Product, Test Description, 100.0, 10)" in captured.out
+
+
