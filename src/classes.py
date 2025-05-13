@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from itertools import product
+
 
 class BaseProduct(ABC):
     @abstractmethod
@@ -27,6 +29,8 @@ class Product(BaseProduct, LoggingMixin):
         self.price = price
         self.quantity = quantity
         super().__init__()
+        if quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
 
     @property
     def price(self):
@@ -80,6 +84,14 @@ class Category:
 
     def __str__(self):
         return f"{self.name}, количество продуктов: {Category.product_count} шт."
+
+    def middle_price(self):
+        try:
+            total_price = sum(product.price for product in self.__products)
+            return total_price / len(self.__products)
+        except ZeroDivisionError:
+            return 0
+
 
 class Smartphone(Product):
     def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
