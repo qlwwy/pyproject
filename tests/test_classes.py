@@ -168,4 +168,20 @@ def test_logging_mixin_output(capsys):
     captured = capsys.readouterr()
     assert "Product, (Test Product, Test Description, 100.0, 10)" in captured.out
 
+@pytest.fixture
+def sample_products():
+    """Фикстура с тестовыми продуктами разной цены"""
+    return [
+        Product("Product 1", "Desc 1", 100.0, 2),
+        Product("Product 2", "Desc 2", 200.0, 3),
+        Product("Product 3", "Desc 3", 300.0, 1)
+    ]
+
+def test_zero_quantity_product():
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        Product("Zero Product", "Description", 50.0, 0)
+
+def test_middle_price_empty_category():
+    category = Category("Empty Category", "Empty Desc", [])
+    assert category.middle_price() == 0
 
